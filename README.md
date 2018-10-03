@@ -1,4 +1,4 @@
-# SplunkNLogTarget
+# NLogTarget.Splunk
 A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
 
 Tested with .NET Framework 4.7.2 (should work with 4.7.x) and .NET Core 2.1  
@@ -53,6 +53,6 @@ _Keep in mind that the timestamp must be sent along with the log entries. The li
 </nlog>
 ```
 
-[NLog_sample.config](SplunkNLogTarget/NLog_sample.config)
+[NLog_sample.config](NLogTarget.Splunk/NLog_sample.config)
 
 ### - Enjoy Responsibly -
