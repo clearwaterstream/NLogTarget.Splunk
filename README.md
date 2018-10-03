@@ -21,7 +21,7 @@ The required parameters are
 Optional parameters are
 
 * `ignoreSSLErrors` - `False` by default. If `True`, ssl errors are ignored when posting to the HEC endpoint
-* `timeout` - # of milliseconds to wait before aborting a POST to HEC endpoint. Default is 30000.
+* `timeout` - # of milliseconds to wait before aborting a POST to HEC endpoint. Default is 30000 (30 seconds).
 
 _Keep in mind that the timestamp must be sent along with the log entries. The library will set the timestamp to the current time (`DateTime.Now`) so ensure that the time across your servers is synchronized._
 
