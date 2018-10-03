@@ -51,6 +51,13 @@ namespace DTCanada.Logging
         [RequiredParameter]
         public string Source { get; set; }
 
+        public bool IgnoreSSLErrors { get; set; } = false;
+
+        /// <summary>
+        /// Timeout, in milliseconds, after which a POST to HEC will be aborted 
+        /// </summary>
+        public int Timeout { get; set; } = (int)new TimeSpan(0, 0, 30).TotalMilliseconds;
+
         protected override void InitializeTarget()
         {
             base.InitializeTarget();
@@ -139,10 +146,9 @@ namespace DTCanada.Logging
             request.Method = "POST";
             request.Proxy = null;
             request.KeepAlive = true;
-            // turn off ssl cert validation -- not recommended
-            request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => { return true; };
-            // timeout by default is set to 30 seconds -- you may want to shorten it
-            request.Timeout = (int)new TimeSpan(0, 0, 30).TotalMilliseconds; // 30 seconds
+            request.Timeout = Timeout;
+            if (IgnoreSSLErrors) // not recommended
+                request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => { return true; };
 
             request.Headers.Add(HttpRequestHeader.Authorization, $"Splunk {AuthToken}");
             request.Headers.Add(HttpRequestHeader.ContentEncoding, "gzip");
