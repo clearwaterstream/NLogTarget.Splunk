@@ -15,4 +15,4 @@ The required parameters are `endpoint`, `authToken`, `index`, and `source`. Keep
 
 [NLog_sample.conig](SplunkNLogTarget/NLog_sample.config)
 
-- Enjoy responsibly
+-- Enjoy responsibly
