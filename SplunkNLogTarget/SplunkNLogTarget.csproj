@@ -10,11 +10,15 @@
 Tested with .NET Framework 4.7.2 (should work with 4.7.x) and .NET Core 2.1
 
 Supports sending log entries in async and sync mode with gzip compression enabled. In async mode, the entries are sent in batches.</Description>
-    <PackageTags>splunk, nlog</PackageTags>
+    <PackageTags>splunk, nlog, hec</PackageTags>
     <Version>1.0.1</Version>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/clearwaterstream/SplunkNLogTarget</PackageProjectUrl>
+    <Copyright>Copyright (c) 2018 Igor Krupin</Copyright>
+    <PackageId>NLogTarget.Splunk</PackageId>
+    <Product>NLogTarget.Splunk</Product>
   </PropertyGroup>
 
   <ItemGroup>
