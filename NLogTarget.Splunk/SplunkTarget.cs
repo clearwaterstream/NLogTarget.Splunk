@@ -1,5 +1,5 @@
 ﻿/* Igor Krupin
- * https://github.com/clearwaterstream/SplunkNLogTarget
+ * https://github.com/clearwaterstream/NLogTarget.Splunk
  */
 using Newtonsoft.Json;
 using NLog;
@@ -14,19 +14,19 @@ using System.Linq;
 using System.Net;
 using System.Text;
 
-namespace DTCanada.Logging
+namespace NLogTarget.Splunk
 {
     [Target("Splunk")]
-    public class SplunkNLogTarget : TargetWithLayout
+    public class SplunkTarget : TargetWithLayout
     {
         string machineHostAddr = null;
         string channel = null;
 
-        public SplunkNLogTarget()
+        public SplunkTarget()
         {
         }
 
-        public SplunkNLogTarget(string name) : this()
+        public SplunkTarget(string name) : this()
         {
             Name = name;
         }

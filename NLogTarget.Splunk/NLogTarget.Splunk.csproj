@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Igor Krupin</Authors>
-    <RepositoryUrl>https://github.com/clearwaterstream/SplunkNLogTarget</RepositoryUrl>
+    <RepositoryUrl>https://github.com/clearwaterstream/NLogTarget.Splunk</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)
 
@@ -15,7 +15,7 @@ Supports sending log entries in async and sync mode with gzip compression enable
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageReleaseNotes>Initial release</PackageReleaseNotes>
-    <PackageProjectUrl>https://github.com/clearwaterstream/SplunkNLogTarget</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/clearwaterstream/NLogTarget.Splunk</PackageProjectUrl>
     <Copyright>Copyright (c) 2018 Igor Krupin</Copyright>
     <PackageId>NLogTarget.Splunk</PackageId>
     <Product>NLogTarget.Splunk</Product>
