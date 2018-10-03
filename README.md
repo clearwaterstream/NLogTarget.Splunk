@@ -1,4 +1,4 @@
-# SplunkNLogTarget
+# NLogTarget.Splunk
 A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
 
 Tested with .NET Framework 4.7.2 (should work with 4.7.x) and .NET Core 2.1  
