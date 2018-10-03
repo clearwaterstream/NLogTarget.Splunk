@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Igor Krupin</Authors>
+    <RepositoryUrl>https://github.com/clearwaterstream/SplunkNLogTarget</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)</Description>
+    <PackageTags>splunk, nlog</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="NLog" Version="4.5.10" />
+  </ItemGroup>
+
+</Project>
