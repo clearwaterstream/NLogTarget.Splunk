@@ -53,6 +53,6 @@ _Keep in mind that the timestamp must be sent along with the log entries. The li
 </nlog>
 ```
 
-[NLog_sample.config](SplunkNLogTarget/NLog_sample.config)
+[NLog_sample.config](NLogTarget.Splunk/NLog_sample.config)
 
 ### - Enjoy Responsibly -
