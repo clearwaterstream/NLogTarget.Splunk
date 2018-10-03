@@ -7,15 +7,16 @@
     <RepositoryType>git</RepositoryType>
     <Description>A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC). Supports sending log entries in async and sync mode with gzip compression enabled.</Description>
     <PackageTags>splunk, nlog, hec</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>v1.0.2 - Added an ability to programmatically resolve the AuthToken
+v1.0.1 - Initial release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/clearwaterstream/NLogTarget.Splunk</PackageProjectUrl>
     <Copyright>Copyright (c) 2018 Igor Krupin</Copyright>
     <PackageId>NLogTarget.Splunk</PackageId>
     <Product>NLogTarget.Splunk</Product>
-    <PackageLicenseUrl>https://github.com/clearwaterstream/NLogTarget.Splunk/blob/master/license.txt</PackageLicenseUrl>
+    <PackageLicenseUrl>https://github.com/clearwaterstream/NLogTarget.Splunk/blob/master/LICENSE</PackageLicenseUrl>
   </PropertyGroup>
 
   <ItemGroup>

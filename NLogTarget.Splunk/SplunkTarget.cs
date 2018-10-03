@@ -73,6 +73,10 @@ namespace NLogTarget.Splunk
             /* It is highly recommended that you write a function here to resolve the AuthToken from a secure location.
             * Do not store the AuthToken in NLog.config as it may inadvertently may be checked into into your code repository
             */
+            if("*resolve*".Equals(AuthToken, StringComparison.OrdinalIgnoreCase))
+            {
+                AuthToken = SplunkAuthTokenResolver.ObtainAuthToken(Name);
+            }
         }
 
         protected override void Write(LogEventInfo logEvent)
@@ -195,23 +199,6 @@ namespace NLogTarget.Splunk
             InternalLogger.Debug($"Sending: {splunkLogEvent.@event}");
 
             serializer.Serialize(jsonWriter, splunkLogEvent);
-        }
-
-        public class SplunkLogEvent
-        {
-            public SplunkLogEvent()
-            {
-                double epochTime = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-
-                time = epochTime.ToString("#.000"); // truncate to 3 digits after floating point
-            }
-
-            public string time { get; }
-            public string index { get; set; }
-            public string source { get; set; }
-            public string sourcetype { get; set; }
-            public string host { get; set; }
-            public string @event { get; set; }
         }
     }
 }
