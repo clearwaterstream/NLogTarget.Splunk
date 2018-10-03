@@ -34,7 +34,7 @@ _Keep in mind that the timestamp must be sent along with the log entries. The li
       throwExceptions="false"
       internalLogLevel="Off" internalLogFile="C:\logs\nlog_internal.log">
   <extensions>
-    <add assembly="SplunkNLogTarget"/>
+    <add assembly="NLogTarget.Splunk"/>
   </extensions>
   <targets async="true">
     <target xsi:type="Splunk" name="splunk" endpoint="https://sample.org/services/collector/event" authToken="***" index="sample_index" source="http:your_app">
