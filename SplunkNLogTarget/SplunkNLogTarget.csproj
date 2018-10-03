@@ -7,6 +7,7 @@
     <RepositoryType>git</RepositoryType>
     <Description>A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)</Description>
     <PackageTags>splunk, nlog</PackageTags>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
