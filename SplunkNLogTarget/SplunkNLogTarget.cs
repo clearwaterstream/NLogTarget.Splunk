@@ -62,6 +62,10 @@ namespace DTCanada.Logging
             machineHostAddr = machineIp?.ToString();
 
             channel = Guid.NewGuid().ToString().ToUpperInvariant();
+
+            /* It is highly recommended that you write a function here to resolve the AuthToken from a secure location.
+            * Do not store the AuthToken in NLog.config as it may inadvertently may be checked into into your code repository
+            */
         }
 
         protected override void Write(LogEventInfo logEvent)
@@ -137,6 +141,7 @@ namespace DTCanada.Logging
             request.KeepAlive = true;
             // turn off ssl cert validation -- not recommended
             request.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => { return true; };
+            // timeout by default is set to 30 seconds -- you may want to shorten it
             request.Timeout = (int)new TimeSpan(0, 0, 30).TotalMilliseconds; // 30 seconds
 
             request.Headers.Add(HttpRequestHeader.Authorization, $"Splunk {AuthToken}");
@@ -163,6 +168,8 @@ namespace DTCanada.Logging
                         var serverReply = sr.ReadToEnd();
 
                         InternalLogger.Debug($"Server reply: {serverReply}");
+
+                        // you may want to inspect and handle various server replies from HEC
                     }
                 }
             }
