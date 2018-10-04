@@ -7,7 +7,7 @@ Supports sending log entries in async and sync mode with gzip compression enable
 
 ## Resolving AuthToken
 
-It is highly recommended that the `AuthToken` value is resolved from a secrets vault rather then NLog.config. You can extend this library and write a custom AuthToken resolution method in `InitializeTarget()`. Unfortunately, NLog does not support "MethodPointer" configuration parameter types. 
+It is highly recommended that the `AuthToken` value is resolved from a secrets vault rather then NLog.config. To resolve the `AuthToken` programmatically, set the value of `AuthToken` to `*resolve*` in NLog.config
 
 ## Sample NLog.config
 
