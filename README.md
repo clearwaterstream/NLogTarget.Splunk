@@ -7,7 +7,41 @@ Supports sending log entries in async and sync mode with gzip compression enable
 
 ## Resolving AuthToken
 
-It is highly recommended that the `AuthToken` value is resolved from a secrets vault rather then NLog.config. To resolve the `AuthToken` programmatically, set the value of `AuthToken` to `*resolve*` in NLog.config
+It is highly recommended that the `AuthToken` value is resolved from a secrets vault rather then NLog.config. To resolve the `AuthToken` programmatically:
+
+* Set the value of `AuthToken` to `*resolve*` in NLog.config
+* Add a handler to `SplunkAuthTokenResolver.OnObtainAuthToken` event early on in the program before any log entries are written. Target name from NLog.config will be passed in to the event handler. Keep in mind that `_wrapped` suffix will be added to the target name incase `<targets async="true">` is set in NLog.config
+* The handler must return the value of the auth token. It is guaranteed that the resolution will only happen once per program lifecycle. If the auth token cannot be resolved, no log entries will be written. Check the internal log for errors (see `internalLogFile` in NLog.config)
+
+### Sample AuthToken resolution code
+
+```csharp
+class Program
+{
+	static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+	static void Main(string[] args)
+	{
+		SplunkAuthTokenResolver.OnObtainAuthToken += SplunkAuthTokenResolver_OnObtainAuthToken;
+
+		logger.Info("Testing 123");
+
+		Console.Read();
+	}
+
+	static string SplunkAuthTokenResolver_OnObtainAuthToken(string targetName)
+	{
+		if(targetName == "splunk" || targetName == "splunk_wrapped")
+		{
+			// get auth token from secrets vault
+
+			return "auth token value";
+		}
+
+		return null;
+	}
+}
+```
 
 ## Sample NLog.config
 
