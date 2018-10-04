@@ -1,6 +1,5 @@
 ﻿using NLog.Common;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace NLogTarget.Splunk
@@ -9,6 +8,8 @@ namespace NLogTarget.Splunk
     {
         static Func<string, string> _onObtainAuthToken;
         static readonly object _onObtainAuthTokenLock = new object();
+
+        internal static readonly string NullToken = "~$null$~";
 
         public static event Func<string, string> OnObtainAuthToken
         {
@@ -28,18 +29,39 @@ namespace NLogTarget.Splunk
             }
         }
 
-        public static string ObtainAuthToken(string targetName)
+        internal static string ObtainAuthToken(string targetName)
         {
             if (string.IsNullOrEmpty(targetName))
-                throw new ArgumentNullException(nameof(targetName));
+            {
+                return NullToken;
+            }
 
             if (_onObtainAuthToken == null)
-                throw new NLog.NLogConfigurationException($"Thare are no handlers for {nameof(OnObtainAuthToken)} event");
+            {
+                InternalLogger.Error($"Thare are no handlers for {nameof(OnObtainAuthToken)} event");
 
-            var authToken = _onObtainAuthToken.Invoke(targetName);
+                return NullToken;
+            }
+
+            string authToken = null;
+
+            try
+            {
+                authToken = _onObtainAuthToken.Invoke(targetName);
+            }
+            catch (Exception ex)
+            {
+                InternalLogger.Error(ex, $"error obtaining auth token for target {targetName}");
+
+                return NullToken;
+            }
 
             if (string.IsNullOrEmpty(authToken))
-                throw new NLog.NLogConfigurationException($"Unable to obtain auth token for target {targetName}. Please ensure you have an appropriate handler for {nameof(OnObtainAuthToken)} event");
+            {
+                InternalLogger.Error($"Unable to obtain auth token for target {targetName}. Please ensure you have an appropriate handler for {nameof(OnObtainAuthToken)} event and that the auth token has a value");
+
+                return NullToken;
+            }
 
             InternalLogger.Info($"auth token obtained for target {targetName}");
 

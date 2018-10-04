@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NLogTarget.Splunk
 {
-    public class SplunkLogEvent
+    internal class SplunkLogEvent
     {
         public SplunkLogEvent()
         {

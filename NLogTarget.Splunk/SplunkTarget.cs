@@ -22,6 +22,8 @@ namespace NLogTarget.Splunk
         string machineHostAddr = null;
         string channel = null;
 
+        static readonly string _resolveAuthTokenFlag = "*resolve*";
+
         public SplunkTarget()
         {
         }
@@ -69,18 +71,13 @@ namespace NLogTarget.Splunk
             machineHostAddr = machineIp?.ToString();
 
             channel = Guid.NewGuid().ToString().ToUpperInvariant();
-
-            /* It is highly recommended that you write a function here to resolve the AuthToken from a secure location.
-            * Do not store the AuthToken in NLog.config as it may inadvertently may be checked into into your code repository
-            */
-            if("*resolve*".Equals(AuthToken, StringComparison.OrdinalIgnoreCase))
-            {
-                AuthToken = SplunkAuthTokenResolver.ObtainAuthToken(Name);
-            }
         }
 
         protected override void Write(LogEventInfo logEvent)
         {
+            if (!AuthTokenResolved())
+                return;
+
             InternalLogger.Debug($"Sending to endpoint: {Endpoint}");
 
             var request = CreateWebRequest();
@@ -106,6 +103,9 @@ namespace NLogTarget.Splunk
 
         protected override void Write(IList<AsyncLogEventInfo> logEvents)
         {
+            if (!AuthTokenResolved())
+                return;
+
             InternalLogger.Debug($"Sending {logEvents.Count} entries to endpoint: {Endpoint}");
 
             var request = CreateWebRequest();
@@ -143,7 +143,22 @@ namespace NLogTarget.Splunk
             ProcessSplunkResponse(request);
         }
 
-        private HttpWebRequest CreateWebRequest()
+        bool AuthTokenResolved()
+        {
+            if (_resolveAuthTokenFlag.Equals(AuthToken, StringComparison.OrdinalIgnoreCase))
+            {
+                AuthToken = SplunkAuthTokenResolver.ObtainAuthToken(this.Name);
+            }
+
+            if (AuthToken == SplunkAuthTokenResolver.NullToken)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        HttpWebRequest CreateWebRequest()
         {
             var request = WebRequest.CreateHttp(Endpoint);
 
@@ -185,7 +200,7 @@ namespace NLogTarget.Splunk
             }
         }
 
-        private void SerializeLogEntry(JsonTextWriter jsonWriter, JsonSerializer serializer, LogEventInfo logEvent)
+        void SerializeLogEntry(JsonTextWriter jsonWriter, JsonSerializer serializer, LogEventInfo logEvent)
         {
             var splunkLogEvent = new SplunkLogEvent()
             {
