@@ -1,7 +1,7 @@
 # NLogTarget.Splunk
-A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
+A simple, lightweight, and extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
 
-Tested with .NET Framework 4.7.2 (should work with 4.7.x) and .NET Core 2.1  
+Tested with .NET Framework 4.7.2 and .NET Core 2.1 (in AWS .NET LAMBDA environment as well)
 
 Supports sending log entries in async and sync mode with gzip compression enabled. In async mode, the entries are sent in batches.
 
@@ -19,7 +19,7 @@ Optional parameters are
 * `ignoreSSLErrors` - `False` by default. If `True`, ssl errors are ignored when posting to the HEC endpoint
 * `timeout` - # of milliseconds to wait before aborting a POST to HEC endpoint. Default is 30000 (30 seconds).
 
-_Keep in mind that the timestamp must be sent along with the log entries. The library will set the timestamp to the current time (`DateTime.Now`) so ensure that the time across your servers is synchronized._
+_Keep in mind that the timestamp must be sent along with the log entries. The library will set the timestamp to the current time (`DateTime.UtcNow`) so ensure that the time across your servers is synchronized._
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
