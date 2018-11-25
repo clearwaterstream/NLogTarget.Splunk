@@ -1,7 +1,7 @@
 # NLogTarget.Splunk
-A simple, extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
+A simple, lightweight, and extensible Splunk NLog target that facilitates delivery of log entries to Http Event Collector (HEC)  
 
-Tested with .NET Framework 4.7.2 and .NET Core 2.1 (tested in AWS .NET LAMBDA environment as well)
+Tested with .NET Framework 4.7.2 and .NET Core 2.1 (in AWS .NET LAMBDA environment as well)
 
 Supports sending log entries in async and sync mode with gzip compression enabled. In async mode, the entries are sent in batches.
 
