@@ -18,7 +18,7 @@ v1.0.3 - Added lazy resolution of AuthToken
 v1.0.2 - Added an ability to programmatically resolve the AuthToken
 v1.0.1 - Initial release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/clearwaterstream/NLogTarget.Splunk</PackageProjectUrl>
-    <Copyright>Copyright (c) 2018 Igor Krupin</Copyright>
+    <Copyright>Copyright (c) $([System.DateTime]::Now.Year) Igor Krupin</Copyright>
     <PackageId>NLogTarget.Splunk</PackageId>
     <Product>NLogTarget.Splunk</Product>
     <PackageLicenseUrl>https://github.com/clearwaterstream/NLogTarget.Splunk/blob/master/LICENSE</PackageLicenseUrl>
