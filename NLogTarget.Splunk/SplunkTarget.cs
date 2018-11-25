@@ -227,5 +227,16 @@ namespace NLogTarget.Splunk
 
             serializer.Serialize(jsonWriter, splunkLogEvent);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if(disposing)
+            {
+                _handler?.Dispose();
+                _client?.Dispose();
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }
