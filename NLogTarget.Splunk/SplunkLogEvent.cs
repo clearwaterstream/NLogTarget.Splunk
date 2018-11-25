@@ -8,7 +8,7 @@ namespace NLogTarget.Splunk
     {
         public SplunkLogEvent()
         {
-            double epochTime = (DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
+            double epochTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
             time = epochTime.ToString("#.000"); // truncate to 3 digits after floating point
         }
