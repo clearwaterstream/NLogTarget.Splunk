@@ -2,6 +2,7 @@
  * https://github.com/clearwaterstream/NLogTarget.Splunk
  */
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NLog;
 using NLog.Common;
 using NLog.Config;
@@ -204,7 +205,14 @@ namespace NLogTarget.Splunk
                     {
                         var serverReply = response.Content.ReadAsStringAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 
-                        InternalLogger.Debug($"Server reply: {serverReply}");
+                        if (response.IsSuccessStatusCode)
+                        {
+                            InternalLogger.Debug($"Server reply: {serverReply}");
+                        }
+                        else
+                        {
+                            InternalLogger.Error($"Received http status code {response.StatusCode} with server reply {serverReply}");
+                        }
 
                         // you may want to inspect and handle various server replies from HEC
                     }
@@ -214,13 +222,15 @@ namespace NLogTarget.Splunk
 
         void SerializeLogEntry(JsonTextWriter jsonWriter, JsonSerializer serializer, LogEventInfo logEvent)
         {
+            var eventJson = Layout.Render(logEvent);
+
             var splunkLogEvent = new SplunkLogEvent()
             {
                 host = $"{Environment.MachineName} {machineHostAddr}",
                 index = Index,
                 source = Source,
                 sourcetype = "_json",
-                @event = Layout.Render(logEvent)
+                @event = new JRaw(eventJson)
             };
 
             InternalLogger.Debug($"Sending: {splunkLogEvent.@event}");
